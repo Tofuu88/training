@@ -1,0 +1,50 @@
+import random
+print("H A N G M A N")
+replay = input('Type "play" to play the game, "exit" to quit, ')
+if replay == "play":
+    print()
+    word_list = ["python", "java", "kotlin", "javascript"]
+    word_choice = random.choice(word_list)
+    word_empty = ("-" * len(word_choice))
+    word_list = list(word_empty)
+    repeat_check = []
+    history = []
+    attempt = 8
+    while attempt > 0:
+        counter = 0
+        print()
+        print(word_empty)
+        #print(repeat_check)
+        #print(history)
+        if word_empty == word_choice:
+            break
+        guess = input("Input a letter: ")
+        history.append(guess)
+        if len(guess) > 1:
+            print("You should input a single letter")
+            continue
+        if len(guess) == 1 and history.count(guess) > 1:
+            print("You already typed this letter")
+            continue
+        if not guess.islower():
+            print("It is not an ASCII lowercase letter")
+            continue
+        elif guess not in word_choice:
+            print("No such letter in the word")
+            attempt += -1
+            repeat_check.append(guess)
+        elif guess in repeat_check:
+            print("No improvements")
+            attempt += -1
+        else:
+            for letter in word_choice:
+                if guess == letter:
+                    word_list[counter] = guess
+                counter += 1
+                word_empty = "".join(word_list)
+            repeat_check.append(guess)
+    if word_empty != word_choice:
+        print("You are hanged!")
+    else:
+        print("You guessed the word! \nYou survived!")
+replay = input('Type "play" to play the game, "exit" to quit, ')
